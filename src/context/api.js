@@ -4,7 +4,7 @@ export const callApi = async (method = "GET",endpoint,  data = null) => {
   try {
     const response = await axios({
       method,
-      url: `http://localhost:3000${endpoint}`,
+      url: `https://nuroailms-backend.onrender.com${endpoint}`,
       data,
       headers: {
         'Content-Type': 'application/json',
