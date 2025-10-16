@@ -6,6 +6,7 @@ import axios from "axios";
 import { useStudent } from "../context/StudentContext";
 import CodingChallengeComponent from "../components/CodingChallengeComponent";
 import { useNavigate } from "react-router-dom";
+import { callApi } from "../context/api";
 
 export default function StudentCodingFlow() {
   const navigation = useNavigate();
@@ -15,7 +16,7 @@ export default function StudentCodingFlow() {
 
   useEffect(()=>{
     const fetchchallengesfordepartment = async ()=>{
-      const res = await axios.get(`http://localhost:3000/coding/student/department/${student.department_id}`)
+      const res = await callApi("GET",`/coding/student/department/${student.department_id}`)
       setchallenges(res.data)
       console.log(res.data)
     }

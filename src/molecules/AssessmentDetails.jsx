@@ -30,6 +30,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import InstructionsBlock from './InstructionsBlock';
 import { useStudent } from '../context/StudentContext';
+import { callApi } from '../context/api';
 
 const AssessmentDetails = () => {
   const navigation = useNavigate();
@@ -44,7 +45,7 @@ const AssessmentDetails = () => {
  
   useEffect(()=>{
     const fetchsingletestdata =async ()=>{
-      const res = await axios(`http://localhost:3000/test/${testid}`);
+      const res = await callApi("GET",`/test/${testid}`);
       settestdata(res.data);
       settestend(res.data.end_date);
        const now = new Date();
@@ -68,16 +69,16 @@ const handleStart = () => {
  useEffect(() => {
   const getisattempted = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:3000/submission/${testid}/student/${studentid}/attempted`
+      const res = await callApi("GET",
+        `/submission/${testid}/student/${studentid}/attempted`
       );
 
       setisattempted(res.data.attempted);
 
       // ✅ use res.data.attempted, not state
       if (res.data.attempted) {
-        const res1 = await axios.get(
-          `http://localhost:3000/submission/${testid}/student/${studentid}/result`
+        const res1 = await callApi("GET",
+          `/submission/${testid}/student/${studentid}/result`
         );
         setresult(res1.data);
       }

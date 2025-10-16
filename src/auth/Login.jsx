@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { IconAlertCircle } from '@tabler/icons-react';
 import axios from 'axios';
 import { useStudent } from '../context/StudentContext';
+import { callApi } from '../context/api';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -32,9 +33,9 @@ const Login = () => {
 
  const handleSubmit = async () => {
   try {
-    const res = await axios.post("http://localhost:3000/auth/student-login", {
-      email,
-      password,
+    const res = await callApi("POST","/auth/student-login",{
+      email : email,
+      password :password,
     });
 
     // If login successful
@@ -49,6 +50,7 @@ const Login = () => {
       }
     }
   } catch (err) {
+    console.log(err)
     setError(
       err.response?.data?.error || "Something went wrong. Try again."
     );

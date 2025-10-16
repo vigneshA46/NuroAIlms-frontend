@@ -18,6 +18,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { IconPlus } from "@tabler/icons-react";
+import { callApi } from "../context/api";
 
 const Adminsingletest = () => {
 
@@ -69,12 +70,12 @@ const [questionForm, setQuestionForm] = useState({
           test_id: testid,
         }));
 
-        await axios.post("http://localhost:3000/question/bulk", {
+        await callApi("POST","/question/bulk", {
           questions: questionsData,
         });
 
         alert("CSV uploaded and questions added!");
-        const qRes = await axios.get(`http://localhost:3000/question/${testid}`);
+        const qRes = await callApi("GET",`/question/${testid}`);
         setQuestions(qRes.data);
       } catch (err) {
         console.error("CSV Upload Error:", err);
@@ -87,23 +88,23 @@ const [questionForm, setQuestionForm] = useState({
  useEffect(() => {
   const fetchsingletest = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/test/${testid}`);
+      const res = await callApi("GET",`/test/${testid}`);
       settestdta(res.data);
 
       if (res.data.college_id) {
-        const collegeRes = await axios.get(
-          `http://localhost:3000/colleges/${res.data.college_id}`
+        const collegeRes = await callApi("GET",
+          `/colleges/${res.data.college_id}`
         );
         setCollege(collegeRes.data);
 
-        const deptRes = await axios.get(
-          `http://localhost:3000/departments/college/${res.data.college_id}`
+        const deptRes = await callApi("GET",
+          `/departments/college/${res.data.college_id}`
         );
         setDepartments(deptRes.data);
       }
 
       // fetch questions
-      const qRes = await axios.get(`http://localhost:3000/question/${testid}`);
+      const qRes = await callApi("GET",`/question/${testid}`);
       setQuestions(qRes.data);
     } catch (error) {
       console.error("Error fetching test:", error);
@@ -118,14 +119,14 @@ const handleSaveQuestion = async () => {
   try {
     if (editingQuestion) {
       // Update existing
-      await axios.put(
-        `http://localhost:3000/question/${editingQuestion.id}`,
+      await callApi("PUT",
+        `/question/${editingQuestion.id}`,
         { ...questionForm, test_id: testid }
       );
       alert("Question updated successfully!");
     } else {
       // Add new
-      await axios.post("http://localhost:3000/question", {
+      await callApi("POST","/question", {
         ...questionForm,
         test_id: testid,
       });
@@ -133,7 +134,7 @@ const handleSaveQuestion = async () => {
     }
 
     // refresh list
-    const qRes = await axios.get(`http://localhost:3000/question/${testid}`);
+    const qRes = await callApi("GET",`/question/${testid}`);
     setQuestions(qRes.data);
 
     setOpenQuestionModal(false);
@@ -155,7 +156,7 @@ const handleSaveQuestion = async () => {
 const handleDeleteQuestion = async (id) => {
   if (!window.confirm("Are you sure you want to delete this question?")) return;
   try {
-    await axios.delete(`http://localhost:3000/question/${id}`);
+    await callApi("DELETE",`/question/${id}`);
     setQuestions(questions.filter((q) => q.id !== id));
   } catch (err) {
     console.error("Error deleting question:", err);
@@ -174,7 +175,7 @@ const handleDeleteQuestion = async (id) => {
 
     try {
       setLoading(true);
-      await axios.post(`http://localhost:3000/test/${testid}/departments`, {
+      await callApi("POST",`/test/${testid}/departments`, {
         department_ids: selectedDepartments,
       });
       alert("Departments allocated successfully!");

@@ -19,6 +19,7 @@ import { IconUser, IconMapPin, IconCalendar, IconArrowLeft } from '@tabler/icons
 import axios from 'axios';
 import { useStudent } from '../context/StudentContext';
 import { useNavigate, } from 'react-router-dom';
+import { callApi } from '../context/api';
 
 const EditProfile = () => {
   const { student } = useStudent();
@@ -39,7 +40,7 @@ const EditProfile = () => {
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3000/studentdata/${studentId}`);
+        const { data } = await callApi("GET",`/studentdata/${studentId}`);
         setFormData({
           fullName: data.full_name || '',
           gender: data.gender || '',
@@ -80,7 +81,7 @@ const EditProfile = () => {
       about_you: formData.about,
     };
 
-    await axios.put(`http://localhost:3000/studentdata/${student.id}`, payload);
+    await callApi("PUT",`/studentdata/${student.id}`, payload);
 
     alert("Profile updated successfully!");
   } catch (error) {

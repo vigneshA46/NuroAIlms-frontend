@@ -27,6 +27,7 @@ import SingleAssessment from '../molecules/SingleAssessment';
 import AssessmentDetails from '../molecules/AssessmentDetails';
 import axios from 'axios';
 import { useStudent } from '../context/StudentContext';
+import { callApi } from '../context/api';
 
 const Assessments = () => {
 
@@ -72,8 +73,8 @@ useEffect(() => {
       try {
         if (!student?.college_id || !student?.department_id) return;
 
-        const res = await axios.get(
-          `http://localhost:3000/test/college/${student.college_id}/department/${student.department_id}`
+        const res = await callApi("GET",
+          `/test/college/${student.college_id}/department/${student.department_id}`
         );
 
         // API returns { count, tests: [] }

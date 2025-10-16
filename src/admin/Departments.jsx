@@ -11,6 +11,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import CreateCodingChallengeModal from '../components/CreateCodingChallengeModal';
 import CodingChallengeComponent from '../components/CodingChallengeComponent';
+import { callApi } from '../context/api';
 
 const Departments = () => {
  // States for test creation
@@ -42,8 +43,7 @@ const [TEstdata , settestdata] = useState([])
   ]);
 
 useEffect(() => {
-  axios
-    .get(`http://localhost:3000/departments/college/${collegeId}`)
+  callApi("GET",`/departments/college/${collegeId}`)
     .then((res) => {
       setDepartments(res.data); 
     })
@@ -52,7 +52,7 @@ useEffect(() => {
 
 useEffect(()=>{
   const fetchchallengefordepartment  = async ()=>{
-    const res = await axios.get(`http://localhost:3000/coding/admin/college/${collegeId}`)
+    const res = await callApi("GET",`/coding/admin/college/${collegeId}`)
     setchallenges(res.data)
   }
   fetchchallengefordepartment();
@@ -63,8 +63,9 @@ useEffect(()=>{
   useEffect(() => {
     const fetchTests = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:3000/test/college/${collegeId}`
+        const res = await callApi(
+          "GET",
+          `/test/college/${collegeId}`
         );
         settestdata(res.data || []);
       } catch (err) {
@@ -79,7 +80,7 @@ useEffect(()=>{
   }, [collegeId]);
 
   const handleSubmit = async(e) => {
-      const res = await axios.post("http://localhost:3000/departments/", {
+      const res = await callApi("POST","/departments/", {
       name: departmentName,
       college_id: collegeId,
     });
@@ -106,7 +107,7 @@ const testcreate = async () => {
     }
 
     // ✅ API call
-    const res = await axios.post("http://localhost:3000/test", {
+    const res = await callApi("POST","/test", {
       title,
       description,
       college_id: collegeId,

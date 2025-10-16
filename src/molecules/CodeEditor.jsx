@@ -22,6 +22,7 @@ import { Calendar, Clock, Code2, Play, TestTube, ArrowLeft, CheckCircle, XCircle
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useStudent } from '../context/StudentContext';
+import { callApi } from '../context/api';
 
 
 const CodeEditor = () => {
@@ -39,7 +40,7 @@ const [loading, setLoading] = useState(false);
 useEffect(() => {
   const fetchChallengeData = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/coding/admin/${challengeid}`);
+      const res = await callApi("GET",`/coding/admin/${challengeid}`);
       const data = res.data;
       setChallengeData(data);
       setLanguage(data?.language_options?.[0]?.toLowerCase() || 'python'); // set after fetch
@@ -86,7 +87,7 @@ const languageOptions = (challengeData?.language_options || []).map((lang) => ({
 
 const handleEvaluate = async () => {
   try {
-    const res = await axios.post('http://localhost:3000/coding/student/submit', {
+    const res = await callApi("POST",'/coding/student/submit', {
       challenge_id: challengeid,
       student_id: student.id,
       language: language,

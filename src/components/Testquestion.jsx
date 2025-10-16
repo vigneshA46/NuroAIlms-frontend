@@ -18,6 +18,7 @@ import {
 import { IconBookmark, IconChevronRight, IconX } from '@tabler/icons-react';
 import { rem } from '@mantine/core';
 import { useStudent } from '../context/StudentContext';
+import { callApi } from '../context/api';
 
 const TestPage = () => {
 
@@ -69,8 +70,9 @@ const [violationCount, setViolationCount] = useState(0);
   // Fetch question by index
   const fetchQuestion = async (index) => {
     try {
-      const { data } = await axios.get(
-        `http://localhost:3000/question/${testid}/question/${index}`
+      const { data } = await callApi(
+        "GET",
+        `/question/${testid}/question/${index}`
       );
       setQuestionData(data.question);
       setTotalQuestions(data.total);
@@ -104,8 +106,9 @@ const [violationCount, setViolationCount] = useState(0);
     let finalScore = 0;
     for (let i = 0; i < totalQuestions; i++) {
       try {
-        const { data } = await axios.get(
-          `http://localhost:3000/question/${testid}/question/${i}`
+        const { data } = await callApi(
+          "GET"
+          `/question/${testid}/question/${i}`
         );
         const q = data.question;
         if (answers[q.id] === q.correct_option) {
@@ -123,7 +126,7 @@ const [violationCount, setViolationCount] = useState(0);
     try {
       const finalScore = await calculateScore();
 
-      await axios.post('http://localhost:3000/submission/test', {
+      await callApi("POST",'/submission/test', {
         student_id: studentId,
         test_id: testid,
         score: finalScore,

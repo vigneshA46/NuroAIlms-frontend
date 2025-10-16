@@ -16,6 +16,7 @@ import {
 import { IconBook, IconChevronRight, IconPlus } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { callApi } from '../context/api';
 
 const Create = () => {
   const [opened, setOpened] = useState(false);
@@ -27,7 +28,7 @@ const Create = () => {
   ]);
 
    useEffect(() => {
-    axios.get("http://localhost:3000/colleges")
+    callApi("GET","/colleges")
       .then((res) => {
         setColleges(res.data); // ✅ set state with response data
       })
@@ -58,8 +59,9 @@ const Create = () => {
 
 const Createcollege = async () => {
   try {
-    const response = await axios.post(
-      "http://localhost:3000/colleges",
+    const response = await callApi(
+      "POST",
+      "/colleges",
       {
         name: collegeName, // example payload
       }

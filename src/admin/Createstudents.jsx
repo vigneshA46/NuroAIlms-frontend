@@ -34,6 +34,7 @@ import {
 } from '@tabler/icons-react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { callApi } from '../context/api';
 
 const Createstudents = () => {
     const { collegeId , departmentId } = useParams();
@@ -68,7 +69,7 @@ const handleCancel = () => {
 };
 
 const handleSubmit =async () => {
-  const res = await axios.post(`http://localhost:3000/students/`,{
+  const res = await callApi("POST",`/students/`,{
     email: email,
     password:password,
     college_id : collegeId,
@@ -84,8 +85,9 @@ const handleSubmit =async () => {
 useEffect(() => {
   const fetchStudent = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:3000/students/get-students/${collegeId}/${departmentId}`
+      const res = await callApi(
+        "GET",
+        `/students/get-students/${collegeId}/${departmentId}`
       );
       setstudentdata(res.data)
       console.log(res.data); // log only the data, not the full response

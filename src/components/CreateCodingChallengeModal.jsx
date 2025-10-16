@@ -14,6 +14,7 @@ import {
 } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import axios from "axios";
+import { callApi } from "../context/api";
 
 const CreateCodingChallengeModal = ({ opened, onClose, onCreated , college_id }) => {
   const [loading, setLoading] = useState(false);
@@ -34,15 +35,14 @@ const CreateCodingChallengeModal = ({ opened, onClose, onCreated , college_id })
   // Fetch colleges on open
   useEffect(() => {
     if (opened) {
-      axios.get("http://localhost:3000/colleges").then((res) => setColleges(res.data));
+      callApi("GET","/colleges").then((res) => setColleges(res.data));
     }
   }, [opened]);
 
   // Fetch departments when college changes
   useEffect(() => {
     if (form.college_id) {
-      axios
-        .get(`http://localhost:3000/departments/college/${college_id}`)
+      callApi("GET",`/departments/college/${college_id}`)
         .then((res) => setDepartments(res.data));
     }
   }, [form.college_id]);
@@ -54,7 +54,7 @@ const CreateCodingChallengeModal = ({ opened, onClose, onCreated , college_id })
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      await axios.post("http://localhost:3000/coding/admin/create", form);
+      await callApi("POST","/coding/admin/create", form);
       onCreated?.();
       onClose();
     } catch (error) {

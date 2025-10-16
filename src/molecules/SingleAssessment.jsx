@@ -21,6 +21,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useStudent } from '../context/StudentContext';
 import axios from 'axios';
+import { callApi } from '../context/api';
 
 
 const SingleAssessment = ({ 
@@ -43,7 +44,7 @@ const SingleAssessment = ({
 
   useEffect(()=>{
     const getisattempted = async ()=>{
-      const res = await axios.get(`http://localhost:3000/submission/${id}/student/${studentid}/attempted`);
+      const res = await callApi("GET",`/submission/${id}/student/${studentid}/attempted`);
       setisattempted(res.data.attempted)
     }
     getisattempted();

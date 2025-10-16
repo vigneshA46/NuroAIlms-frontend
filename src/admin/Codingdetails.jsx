@@ -34,6 +34,7 @@ import {
   IconCheck,
   IconCopy
 } from "@tabler/icons-react";
+import { callApi } from "../context/api";
 
 const CodingChallengeDetails = () => {
   const [challengeData, setChallengeData] = useState(null);
@@ -45,8 +46,8 @@ const CodingChallengeDetails = () => {
   useEffect(() => {
     const fetchCodingData = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:3000/coding/admin/${challengeid}`
+        const res = await callApi("GET",
+          `/coding/admin/${challengeid}`
         );
         setChallengeData(res.data);
       } catch (err) {
@@ -57,8 +58,8 @@ const CodingChallengeDetails = () => {
 
     const fetchAllSubmissions = async () => {
       try {
-        const res1 = await axios.get(
-          `http://localhost:3000/submission/submission/${challengeid}`
+        const res1 = await callApi("GET",
+          `/submission/submission/${challengeid}`
         );
         setSubmissions(res1.data);
       } catch (err) {
