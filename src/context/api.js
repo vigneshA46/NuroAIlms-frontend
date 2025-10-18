@@ -1,10 +1,13 @@
 import axios from "axios";
 
+const localaddress = "http://localhost:3000"
+const cloudaddress = "https://nuroailms-backend.onrender.com"
+
 export const callApi = async (method = "GET",endpoint,  data = null) => {
   try {
     const response = await axios({
       method,
-      url: `https://nuroailms-backend.onrender.com${endpoint}`,
+      url: `${cloudaddress}${endpoint}`,
       data,
       headers: {
         'Content-Type': 'application/json',

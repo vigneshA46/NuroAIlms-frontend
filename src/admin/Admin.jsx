@@ -72,7 +72,7 @@ const Admin = () => {
     >
       {/* HEADER */}
       <AppShell.Header>
-        <Flex h="100%" px="md" justify="space-between">
+        <Flex align="center" h="100%" px="md" justify="space-between">
           <Burger opened={opened} onClick={() => setOpened((o) => !o)} hiddenFrom="sm" size="sm" />
           <Text p={20} fw={600}>NuroAI</Text>
           <Box bg="#eeeeeeff" style={{borderRadius:'50%',alignItems:'center'}} pt={8} w={40} h={40} mt={10}  >
@@ -148,7 +148,7 @@ const Admin = () => {
             </AppShell.Navbar>
 
       {/* MAIN CONTENT WITH ROUTES */}
-      <AppShell.Main bg="gray.0" w="100%">
+      <AppShell.Main bg="gray.0" px="1rem" py="5rem">
         <Outlet />
       </AppShell.Main>
     </AppShell>

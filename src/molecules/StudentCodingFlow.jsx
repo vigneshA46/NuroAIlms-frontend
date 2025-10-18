@@ -7,6 +7,7 @@ import { useStudent } from "../context/StudentContext";
 import CodingChallengeComponent from "../components/CodingChallengeComponent";
 import { useNavigate } from "react-router-dom";
 import { callApi } from "../context/api";
+import { IconArrowNarrowLeft } from "@tabler/icons-react";
 
 export default function StudentCodingFlow() {
   const navigation = useNavigate();
@@ -26,6 +27,7 @@ export default function StudentCodingFlow() {
   
   return <>
   <Stack>
+    
   <Card
              pl="2.5rem"
              radius={10}
@@ -64,7 +66,7 @@ export default function StudentCodingFlow() {
         ]}
       >
         {challenges.map((challenge) => (
-        <UnstyledButton onClick={()=>navigation('/home/codeeditor/1')} >
+        <UnstyledButton onClick={()=>navigation(`/home/codeeditor/${challenge.id}`)} >
           <CodingChallengeComponent key={challenge.id} challenge={challenge} />
         </UnstyledButton>
         ))}

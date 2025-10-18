@@ -119,6 +119,11 @@ const CodingChallengeComponent = ({ challenge }) => {
             </Text>
           </Group>
         </Stack>
+          {new Date(challenge.end_date) < new Date() && (
+            <Text size="sm" color="red"  weight={600}>
+              Expired
+            </Text>
+          )}
       </Stack>
     </Card>
   );

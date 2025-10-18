@@ -21,9 +21,10 @@ import {
   Tooltip,
   ActionIcon,
   CopyButton,
-  rem
+  rem,
+  UnstyledButton
 } from "@mantine/core";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   IconCalendar,
   IconCode,
@@ -32,7 +33,8 @@ import {
   IconClock,
   IconAlertCircle,
   IconCheck,
-  IconCopy
+  IconCopy,
+  IconArrowNarrowLeft
 } from "@tabler/icons-react";
 import { callApi } from "../context/api";
 
@@ -42,6 +44,7 @@ const CodingChallengeDetails = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const { challengeid } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCodingData = async () => {
@@ -119,7 +122,12 @@ const CodingChallengeDetails = () => {
 
   return (
     <Container size="xl" py="xl">
+
       <Stack gap="xl">
+         <UnstyledButton style={{display:'flex'}}  onClick={()=>navigate(-1)} >
+                          <IconArrowNarrowLeft />
+                          <Text>Back</Text>
+                        </UnstyledButton>
         {/* Challenge Header */}
         <Paper shadow="sm" p="xl" radius="md" withBorder>
           <Stack gap="md">
@@ -265,7 +273,7 @@ const CodingChallengeDetails = () => {
                     <Stack gap="md">
                       {submission.feedback && (
                         <Box>
-                          <Text size="sm" fw={600} mb="xs">
+                          <Text style={{textAlign:'left'}} size="sm" fw={600} mb="xs">
                             AI Feedback:
                           </Text>
                           <Alert color="blue" variant="light">
@@ -294,7 +302,7 @@ const CodingChallengeDetails = () => {
                           </CopyButton>
                         </Group>
                         <ScrollArea>
-                          <Code block style={{ whiteSpace: "pre" }}>
+                          <Code  block style={{ whiteSpace: "pre",textAlign:'left' }}>
                             {submission.code}
                           </Code>
                         </ScrollArea>

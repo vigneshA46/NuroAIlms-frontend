@@ -4,7 +4,8 @@ import {
   UnstyledButton, Modal, TextInput, Select,
   SimpleGrid,
   ThemeIcon,
-  NumberInput
+  NumberInput,
+  Container
 } from '@mantine/core';
 import { IconArrowLeft, IconArrowRight, IconBook, IconChevronRight, IconPlus, IconTrash } from '@tabler/icons-react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -34,13 +35,8 @@ const [TEstdata , settestdata] = useState([])
   const [departmentName, setDepartmentName] = useState("");
   const [selectedCollege, setSelectedCollege] = useState(null);
   const [departments, setDepartments] = useState([]);
-  const [challenges, setchallenges] = useState([])
-
-  const [colleges] = useState([
-    { value: "1", label: "ABC College" },
-    { value: "2", label: "XYZ College" },
-    { value: "3", label: "LMN College" },
-  ]);
+  const [challenges, setchallenges] = useState([]);
+  const [collegename, setcollegename] = useState()
 
 useEffect(() => {
   callApi("GET",`/departments/college/${collegeId}`)
@@ -49,6 +45,12 @@ useEffect(() => {
     })
     .catch((err) => console.error(err));
 }, [collegeId]);
+
+useEffect(()=>{
+  callApi("GET",`/colleges/${collegeId}`).then((res)=>{
+    setcollegename(res.data.name)
+  })
+},[collegeId])
 
 useEffect(()=>{
   const fetchchallengefordepartment  = async ()=>{
@@ -144,12 +146,53 @@ const testcreate = async () => {
   return (
     <>
       <Stack>
-        <UnstyledButton onClick={()=>navigation('/admin/create')} >
-        <Flex gap={2} align="center"  >
-          <IconArrowLeft size={16} />
-          <Text>Back</Text>
-        </Flex>
-        </UnstyledButton>
+                  <UnstyledButton onClick={()=>navigation('/admin/create')} >
+                  <Flex gap={2} align="center"  >
+                    <IconArrowLeft size={16} />
+                    <Text>Back</Text>
+                  </Flex>
+                  </UnstyledButton>
+        <Box
+                style={{
+                  background: 'linear-gradient(135deg, #7c3aed 0%, #c084fc 30%, #f0abfc 50%, #fb923c 80%, #fbbf24 100%)',
+                  padding: '48px 32px',
+                  marginBottom: '32px',
+                  borderRadius: '12px',
+                  position: 'relative',
+                }}
+              >
+                <Container size="xl">
+                  <Flex justify="space-between" align="center">
+                    <Box>
+                      <Title
+                        order={1}
+                        style={{
+                          color: 'white',
+                          fontSize: '2.5rem',
+                          fontWeight: 700,
+                          marginBottom: '8px',
+                          letterSpacing: '-0.5px',
+                          textAlign: 'left'
+                        }}
+                      >
+                        {collegename}
+                      </Title>
+                      <Text
+                        size="md"
+                        style={{
+                          color: 'white',
+                          opacity: 0.95,
+                          fontSize: '1rem',
+                          textAlign:'left'
+                        }}
+                      >
+                       Start exploring the college Details.Lets dive in create and manage Assessments
+                      </Text>
+                    </Box>
+                  </Flex>
+                </Container>
+              </Box>
+        
         
         <Flex align="center" gap="1rem" >
            <UnstyledButton 

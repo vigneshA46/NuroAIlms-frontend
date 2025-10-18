@@ -11,7 +11,9 @@ import {
   Title, 
   UnstyledButton, 
   Modal, 
-  TextInput 
+  TextInput, 
+  Container,
+  Flex
 } from '@mantine/core';
 import { IconBook, IconChevronRight, IconPlus } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
@@ -79,7 +81,47 @@ const Createcollege = async () => {
   return (
     <>
       <Stack>
-        <Title style={{textAlign:'left'}} >Colleges</Title>
+        <Box
+                        style={{
+                          background: 'linear-gradient(135deg, #7c3aed 0%, #c084fc 30%, #f0abfc 50%, #fb923c 80%, #fbbf24 100%)',
+                          padding: '48px 32px',
+                          marginBottom: '32px',
+                          borderRadius: '12px',
+                          position: 'relative',
+                        }}
+                      >
+                        <Container size="xl">
+                          <Flex justify="space-between" align="center">
+                            <Box>
+                              <Title
+                                order={1}
+                                style={{
+                                  color: 'white',
+                                  fontSize: '2.5rem',
+                                  fontWeight: 700,
+                                  marginBottom: '8px',
+                                  letterSpacing: '-0.5px',
+                                  textAlign: 'left'
+                                }}
+                              >
+                                Colleges
+                              </Title>
+                              <Text
+                                size="md"
+                                style={{
+                                  color: 'white',
+                                  opacity: 0.95,
+                                  fontSize: '1rem',
+                                  textAlign:'left'
+                                }}
+                              >
+                               Start exploring Available colleges .Lets dive in create and manage Colleges and institutions
+                              </Text>
+                            </Box>
+                          </Flex>
+                        </Container>
+                      </Box>
+                      <Flex align="center" justify="left" gap={15} >
         <UnstyledButton 
           bg="blue" 
           w="40px" 
@@ -89,7 +131,10 @@ const Createcollege = async () => {
           onClick={() => setOpened(true)}
         >
           <IconPlus size={30} color='#fff'/> 
+
         </UnstyledButton>
+        <Title order={4} >Create College</Title>
+        </Flex>
 
         <Grid>
       {colleges.map((college, index) => (

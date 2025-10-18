@@ -18,7 +18,7 @@ const Dashboard = () => {
 
      
   return (
-   <Stack gap="xl">
+   <Stack p="1rem" gap="xl">
           {/* Welcome Section */}
           <Card 
            p="xl"  radius="md"

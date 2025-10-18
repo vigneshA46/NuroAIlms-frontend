@@ -20,7 +20,9 @@ import {
   Progress,
   rem,
   Modal,
-  PasswordInput
+  PasswordInput,
+  UnstyledButton,
+  Flex
 } from '@mantine/core';
 import {
   IconSearch,
@@ -30,14 +32,16 @@ import {
   IconEdit,
   IconTrash,
   IconUserPlus,
-  IconClock
+  IconClock,
+  IconArrowLeft
 } from '@tabler/icons-react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { callApi } from '../context/api';
 
 const Createstudents = () => {
     const { collegeId , departmentId } = useParams();
+    const navigate = useNavigate();
 
 
 
@@ -194,6 +198,17 @@ useEffect(() => {
   });
 
   return (
+    <>
+  <Flex justify="flex-start" mb="md">
+  <UnstyledButton onClick={() => navigate(-1)}>
+    <Flex gap={2} align="center">
+      <IconArrowLeft size={16} />
+      <Text>Back</Text>
+    </Flex>
+  </UnstyledButton>
+</Flex>
+    <Box>
+    
     <Container size="xl" py="md">
       <Paper shadow="xs" p="md" radius="md">
         {/* Header Section */}
@@ -530,6 +545,8 @@ useEffect(() => {
       </Stack>
     </Modal>
     </Container>
+    </Box>
+    </>
   );
 };
 

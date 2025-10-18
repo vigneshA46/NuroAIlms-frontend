@@ -15,7 +15,8 @@ import {
   Paper,
   Divider,
   ThemeIcon,
-  Alert
+  Alert,
+  UnstyledButton
 } from '@mantine/core';
 import { Editor } from '@monaco-editor/react';
 import { Calendar, Clock, Code2, Play, TestTube, ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
@@ -23,10 +24,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useStudent } from '../context/StudentContext';
 import { callApi } from '../context/api';
+import { IconArrowNarrowLeft, IconX } from '@tabler/icons-react';
+import { useNotifications } from '@mantine/notifications';
+import toast from 'react-hot-toast';
+
 
 
 const CodeEditor = () => {
   const {student} = useStudent();
+  const notifications = useNotifications();
+
   const navigation = useNavigate();
  const { challengeid } = useParams();
 const [challengeData, setChallengeData] = useState({}); // <-- should be object, not array
@@ -35,6 +42,8 @@ const [code, setCode] = useState('');
 const [result, setResult] = useState(null);
 const [output, setOutput] = useState('');
 const [loading, setLoading] = useState(false);
+const [isExpired, setIsExpired] = useState(false);
+
 
 
 useEffect(() => {
@@ -44,6 +53,12 @@ useEffect(() => {
       const data = res.data;
       setChallengeData(data);
       setLanguage(data?.language_options?.[0]?.toLowerCase() || 'python'); // set after fetch
+       if (data?.end_date) {
+    const endDate = new Date(data.end_date); // assuming end_date is a valid date string
+    const now = new Date();
+
+    setIsExpired(now > endDate); // true if current date is after end date
+  }
     } catch (error) {
       console.error('Error fetching challenge:', error);
     }
@@ -87,22 +102,42 @@ const languageOptions = (challengeData?.language_options || []).map((lang) => ({
 
 const handleEvaluate = async () => {
   try {
-    const res = await callApi("POST",'/coding/student/submit', {
+    // 1️⃣ Submit student code first
+    const submitRes = await callApi("POST", "/coding/student/submit", {
       challenge_id: challengeid,
       student_id: student.id,
       language: language,
       code: code,
     });
-    navigation('/home/studentcoding')
-  } catch (error) {
-    // Handle errors gracefully
-    console.error('Error submitting code:', error);
 
-    notifications.show({
-      title: 'Submission Failed',
-      message: error.response?.data?.message || 'Something went wrong. Please try again.',
-      color: 'red',
+    // 2️⃣ Call AI review API
+    const reviewRes = await callApi("POST", "/coding/admin/review", {
+      title: challengeData.title,          // make sure you have the title in your state
+      description: challengeData.description, // make sure you have description in state
+      studentCode: code,
+      student_id: student.id,
+      challenge_id: challengeid,
     });
+
+    console.log("AI Review Response:", reviewRes);
+
+    // 3️⃣ Navigate after everything is done
+    navigation("/home/studentcoding");
+
+    // Optional: show a notification
+    notifications.show({
+      title: "Submission Reviewed",
+      message: `AI Score: ${reviewRes.score}, Feedback: ${reviewRes.feedback}`,
+      color: "green",
+    });
+
+  } catch (error) {
+    console.error("Error submitting or reviewing code:", error);
+
+   toast.success(
+      `AI Score: ${reviewRes.score}\nFeedback: ${reviewRes.feedback}`
+    );
+
   }
 };
 
@@ -110,6 +145,10 @@ const handleEvaluate = async () => {
   return (
     <Container size="xl" py="xl">
       <Stack spacing="lg">
+            <UnstyledButton style={{display:'flex'}}  onClick={()=>navigation('/home/studentcoding')} >
+                  <IconArrowNarrowLeft />
+                  <Text>Back</Text>
+                </UnstyledButton>
         {/* Challenge Header */}
         <Paper shadow="xs" p="xl" radius="md" withBorder>
           <Stack spacing="md">
@@ -167,7 +206,25 @@ const handleEvaluate = async () => {
         </Paper>
 
         {/* Code Editor Section */}
-        <Paper shadow="xs" p="lg" radius="md" withBorder>
+
+        {
+          isExpired ?
+          <Alert
+            icon={<IconX size={16} />} 
+            color="gray" 
+            variant="light"
+            mb="xl"
+            styles={{
+              root: {
+                backgroundColor: '#f8f9fa',
+                border: 'none',
+              }
+            }}
+          >
+          <Text  fw="500" style={{textAlign:'left'}} color="dark">
+                        Challenge has expired!
+                      </Text></Alert> :
+                  <Paper shadow="xs" p="lg" radius="md" withBorder>
           <Stack spacing="md">
             <Group position="apart">
               <Text size="lg" weight={600}>Code Editor</Text>
@@ -226,6 +283,9 @@ const handleEvaluate = async () => {
             </Group>
           </Stack>
         </Paper>
+        }
+
+
 
         {/* Evaluation Result */}
         {result && (

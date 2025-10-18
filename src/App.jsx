@@ -1,4 +1,3 @@
-import './App.css'
 import { MantineProvider } from '@mantine/core'
 import '@mantine/core/styles.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
@@ -33,7 +32,7 @@ import Codingdetails from './admin/Codingdetails'
 function App() {
   return (
     <MantineProvider>
-      <BrowserRouter>
+      <BrowserRouter> 
         <Routes>
           {/* Login route */}
           <Route path="/login" element={<Login />} />

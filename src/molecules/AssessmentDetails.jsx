@@ -306,7 +306,7 @@ const handleStart = () => {
 
                 <Box style={{borderRadius:'10px'}} bg="#ecececff" p="1rem" >
                   <Text size="sm" style={{textAlign:'left'}} c="#272727ff" fw="600" transform="uppercase" mb="xs">
-                    Answered
+                    Score
                   </Text>
                   <Text c="#000" size='lg' fw="600" style={{textAlign:'left'}} >{rresult.score}</Text>
                 </Box>
