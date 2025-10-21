@@ -7,7 +7,7 @@ export const callApi = async (method = "GET",endpoint,  data = null) => {
   try {
     const response = await axios({
       method,
-      url: `${cloudaddress}${endpoint}`,
+      url: `${localaddress}${endpoint}`,
       data,
       headers: {
         'Content-Type': 'application/json',

@@ -34,7 +34,7 @@ const MentoringSupport = () => {
   ];
 
   return (
-    <Box style={{ width: '100%', minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
+    <Box p="1rem" style={{ width: '100%', minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
       {/* Hero Section */}
       <Box
         style={{

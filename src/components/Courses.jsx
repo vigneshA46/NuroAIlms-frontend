@@ -3,8 +3,32 @@ import { IconBook, IconBrain, IconCertificate, IconClipboardCheck } from '@table
 import React from 'react'
 
 const Courses = () => {
+  const courseData = [
+  {
+    id: 1,
+    title:
+      "Career Transformation Program - Dhanalakshmi Srinivasan Engineering College | CSE | ECE",
+    label: "Course 1",
+    level: "Beginner",
+    levelColor: "green",
+    gradient: "linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)",
+    buttonText: "Continue",
+    buttonVariant: "filled",
+  },
+  {
+    id: 2,
+    title: "Advanced Web Development Bootcamp",
+    label: "Course 2",
+    level: "Intermediate",
+    levelColor: "orange",
+    gradient: "linear-gradient(135deg, #f59e0b 0%, #f97316 100%)",
+    buttonText: "Start",
+    buttonVariant: "outline",
+  },
+];
+
   return (
-      <Container size="xl" p={0}>
+      <Container size="xl" p="1rem">
           <Stack spacing="xl">
    <Card
            pl="2.5rem"
@@ -44,166 +68,91 @@ const Courses = () => {
         </Title>
 
 
-        <Grid>
-
-        <Grid.Col span={{ base: 6, xl: 8 }}>
-        {/* Course Card */}
-        <Card
-          shadow="sm"
-          padding="lg"
-          radius="md"
-          withBorder
-          style={{
-            transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-            cursor: 'pointer',
-          }}
-          styles={{
-            root: {
-              '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
-              },
+       <Grid>
+  {courseData.map((course) => (
+    <Grid.Col key={course.id} span={{ base: 12, sm: 6, xl: 8 }}>
+      <Card
+        shadow="sm"
+        padding="lg"
+        radius="md"
+        withBorder
+        style={{
+          transition: "transform 0.2s ease, box-shadow 0.2s ease",
+          cursor: "pointer",
+        }}
+        styles={{
+          root: {
+            "&:hover": {
+              transform: "translateY(-2px)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12)",
             },
-          }}
-        >
-          <Group gap="md" wrap="nowrap">
-            {/* Course Icon/Avatar */}
-            <Avatar
-              size={60}
-              radius="md"
-              style={{
-                background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)',
-                flexShrink: 0,
-              }}
-            >
-              <IconBook size={28} color="white" />
-            </Avatar>
+          },
+        }}
+      >
+        <Group gap="md" wrap="nowrap">
+          {/* Avatar Icon */}
+          <Avatar
+            size={60}
+            radius="md"
+            style={{
+              background: course.gradient,
+              flexShrink: 0,
+            }}
+          >
+            <IconBook size={28} color="white" />
+          </Avatar>
 
-            {/* Course Content */}
-            <Box style={{ flex: 1, minWidth: 0 }}>
-              <Group gap="sm" mb="xs" wrap="wrap">
-                <Text size="sm" c="dimmed" fw={500}>
-                  Course 1
-                </Text>
-                <Badge
-                  color="green"
-                  variant="light"
-                  size="sm"
-                  radius="sm"
-                >
-                  Beginner
-                </Badge>
-              </Group>
-
-              <Title
-              
-                order={3}
-                size="lg"
-                fw={600}
-                mb="xs"
-                style={{
-                  lineHeight: 1.3,
-                  wordBreak: 'break-word',
-                  textAlign:'left'
-                }}
+          {/* Card Content */}
+          <Box style={{ flex: 1, minWidth: 0 }}>
+            <Group gap="sm" mb="xs" wrap="wrap">
+              <Text size="sm" c="dimmed" fw={500}>
+                {course.label}
+              </Text>
+              <Badge
+                color={course.levelColor}
+                variant="light"
+                size="sm"
+                radius="sm"
               >
-                Career Transformation Program- Dhanalakshmi Srinivasan Engineering College | CSE | ECE
-              </Title>
-            </Box>
+                {course.level}
+              </Badge>
+            </Group>
 
-            
-          </Group>
-          {/* Continue Button */}
-            <Button
-            mt={10}
-              variant="filled"
-              color="blue"
-              size="md"
-              radius="md"
+            <Title
+              order={3}
+              size="lg"
+              fw={600}
+              mb="xs"
               style={{
-                flexShrink: 0,
-                minWidth: 100,
+                lineHeight: 1.3,
+                wordBreak: "break-word",
+                textAlign: "left",
               }}
             >
-              Continue
-            </Button>
-        </Card>
-        </Grid.Col>
-        <Grid.Col span={{ base: 6, xl: 8 }} >
+              {course.title}
+            </Title>
+          </Box>
+        </Group>
 
-        {/* Additional placeholder cards for demonstration */}
-        <Card
-          shadow="sm"
-          padding="lg"
-          radius="md"
-          withBorder
-          opacity={0.6}
-          style={{
-            transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-            cursor: 'pointer',
-          }}
-        >
-          <Group gap="md" wrap="nowrap">
-            <Avatar
-              size={60}
-              radius="md"
-              style={{
-                background: 'linear-gradient(135deg, #f59e0b 0%, #f97316 100%)',
-                flexShrink: 0,
-              }}
-            >
-              <IconBook size={28} color="white" />
-            </Avatar>
-
-            <Box style={{ flex: 1, minWidth: 0 }}>
-              <Group gap="sm" mb="xs" wrap="wrap">
-                <Text size="sm" c="dimmed" fw={500}>
-                  Course 2
-                </Text>
-                <Badge
-                  color="orange"
-                  variant="light"
-                  size="sm"
-                  radius="sm"
-                >
-                  Intermediate
-                </Badge>
-              </Group>
-
-              <Title
-                order={3}
-                size="lg"
-                fw={600}
-                mb="xs"
-                style={{
-                  lineHeight: 1.3,
-                  wordBreak: 'break-word',
-                  textAlign:'left'
-                }}
-              >
-                Advanced Web Development Bootcamp
-              </Title>
-            </Box>
-
-            
-          </Group>
-          <Button
+        {/* Button */}
+        <Button
           mt={10}
-              variant="outline"
-              color="blue"
-              size="md"
-              radius="md"
-              style={{
-                flexShrink: 0,
-                minWidth: 100,
-              }}
-            >
-              Start
-            </Button>
-        </Card>
-        </Grid.Col>
-        </Grid>
-      </Stack>
+          variant={course.buttonVariant}
+          color="blue"
+          size="md"
+          radius="md"
+          style={{
+            flexShrink: 0,
+            minWidth: 100,
+          }}
+        >
+          {course.buttonText}
+        </Button>
+      </Card>
+    </Grid.Col>
+  ))}
+</Grid>
+</Stack>
            </Stack>
            </Container>
   )

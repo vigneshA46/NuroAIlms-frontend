@@ -93,7 +93,7 @@ const handleStart = () => {
  
 
   return (
-    <Container size="xl" p={0}>
+    <Container size="xl" p="1rem">
       <Flex justify="flex-start">
   <UnstyledButton onClick={() => navigation('/home/assessments')}>
     <Flex align="center" gap="sm" mb={10}>
@@ -148,11 +148,11 @@ const handleStart = () => {
           
           <Group position="apart" align="flex-start" mb="xl">
             <Box sx={{ flex: 1, maxWidth: '600px' }}>
-              <Title style={{textAlign:'left'}} order={1} size="h1" weight={700} mb="lg" color="dark">
+              <Title style={{textAlign:'left'}} order={1} size="1.5rem" weight={700} mb="lg" color="dark">
                 {testdata.title}
               </Title>
               
-              <SimpleGrid cols={{ base: 1, sm: 5 }} spacing="lg" mb="xl">
+              <SimpleGrid cols={{ base: 2, sm: 5 }} spacing="lg" mb="xl">
   {/* Duration */}
   <Group spacing="sm">
     <ThemeIcon size={32} radius="md" color="blue" variant="light">

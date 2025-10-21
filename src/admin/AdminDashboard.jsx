@@ -74,7 +74,7 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <Stack gap="xl">
+    <Stack p="1rem" gap="xl">
       <Card
         p="xl" radius="md"
         style={{
@@ -90,7 +90,7 @@ const AdminDashboard = () => {
       </Card>
 
       <SimpleGrid
-        cols={{ base: 1, xs: 2, sm: 2, md: 3, lg: 4 }}
+        cols={{ base: 2, xs: 2, sm: 2, md: 3, lg: 4 }}
         spacing="md"
       >
         {statsData.map((stat, index) => (

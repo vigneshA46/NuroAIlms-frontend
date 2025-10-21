@@ -80,7 +80,7 @@ const Createcollege = async () => {
 
   return (
     <>
-      <Stack>
+      <Stack p="1rem" >
         <Box
                         style={{
                           background: 'linear-gradient(135deg, #7c3aed 0%, #c084fc 30%, #f0abfc 50%, #fb923c 80%, #fbbf24 100%)',

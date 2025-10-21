@@ -15,9 +15,9 @@ import {
 } from "@mantine/core";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
-import { IconPlus } from "@tabler/icons-react";
+import { IconArrowLeft, IconPlus } from "@tabler/icons-react";
 import { callApi } from "../context/api";
 
 const Adminsingletest = () => {
@@ -26,6 +26,7 @@ const Adminsingletest = () => {
   const [questions, setQuestions] = useState([]);
 const [openQuestionModal, setOpenQuestionModal] = useState(false);
 const [editingQuestion, setEditingQuestion] = useState(null);
+const navigate = useNavigate();
 const [questionForm, setQuestionForm] = useState({
   question_text: "",
   option_a: "",
@@ -190,8 +191,14 @@ const handleDeleteQuestion = async (id) => {
   };
 
   return (
-    <Container size="xl" p={0}>
+    <Container size="xl" p="1rem">
       <Stack spacing="xl">
+        <UnstyledButton onClick={()=>navigate(-1)} >
+                  <Flex gap={2} align="center"  >
+                    <IconArrowLeft size={16} />
+                    <Text>Back</Text>
+                  </Flex>
+                  </UnstyledButton>
         {/* Header */}
         <Card
           pl="2.5rem"

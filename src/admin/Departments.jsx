@@ -145,7 +145,7 @@ const testcreate = async () => {
 
   return (
     <>
-      <Stack>
+      <Stack p="1rem" >
                   <UnstyledButton onClick={()=>navigation('/admin/create')} >
                   <Flex gap={2} align="center"  >
                     <IconArrowLeft size={16} />
@@ -194,7 +194,7 @@ const testcreate = async () => {
               </Box>
         
         
-        <Flex align="center" gap="1rem" >
+        <Flex align="center" wrap="wrap" gap="1rem" >
            <UnstyledButton 
           bg="blue" 
           w="40px" 
@@ -449,17 +449,15 @@ Tests          </Title>
         onCreated={() => alert("Challenge created successfully!")}
         college_id={collegeId}
       />
-<Title style={{textAlign:'left'}} order={3} mb="xl" mt="xl" color="dark">
+<Title px="1rem" style={{textAlign:'left'}} order={3} mb="xl" mt="xl" color="dark">
 Coding challenges          </Title>  
- <Box style={{ 
+ <Box p="1rem" style={{ 
       maxWidth: '1400px',
     }} mt="2rem" >
       <SimpleGrid
-        cols={2}
+        
         spacing="lg"
-        breakpoints={[
-          { maxWidth: 'md', cols: 1 }
-        ]}
+        cols={{ base: 1, sm: 2, md: 2, lg: 3 }} 
       >
         {challenges.map((challenge) => (
           <UnstyledButton onClick={()=>navigation(`/admin/codingdetails/${challenge.id}`)} >

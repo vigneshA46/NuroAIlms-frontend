@@ -29,22 +29,22 @@ const Dashboard = () => {
             <Title style={{textAlign:'left'}} order={1} mb="sm" c="#000">
               Welcome Back, <Text size='30px' fw="700" component="span" c="blue">VIGNESH A!</Text>
             </Title>
-            <Text style={{textAlign:'left'}} c="dimmed" size="lg" mb="md">
+            <Text style={{textAlign:'left'}} c="dimmed" size="md" mb="md">
               Ready to continue your learning journey? You're making great progress!
             </Text>
-            <Button onClick={()=>navigation('/home/editprofile')} w="16%" leftSection={<IconEdit size={16} />} size="md">
+            <Button onClick={()=>navigation('/home/editprofile')} w="10rem" leftSection={<IconEdit size={16} />} size="md">
               Edit Profile
             </Button>
           </Card>
 
           <Grid>
             {/* Assessment Activity */}
-            <Grid.Col span={{ base: 8, xl: 8 }}>
-              <Card shadow="sm" padding="xl" radius="md" withBorder>
+              <Grid.Col span={{ base: 12, md: 8, xl: 8 }}>
+                <Card shadow="sm" padding="xl" radius="md" withBorder>
                 <Title style={{textAlign:'left'}}  order={3} mb="xl">
                   Assessment Activity
                 </Title>
-                <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
+                <SimpleGrid cols={{ base: 2, sm: 2, md: 2, lg: 2 }} spacing="xl">
                   {assessmentStats.map((stat, index) => (
                     <Card bd="1px solid white" >
                     <Group key={index} align="flex-start" gap="md">
@@ -74,7 +74,8 @@ const Dashboard = () => {
             </Grid.Col>
 
             {/* Announcements */}
-            <Grid.Col span={{ base: 4, xl: 4 }}>
+              <Grid.Col span={{ base: 12, md: 4, xl: 4 }}>
+
               <Card shadow="sm" padding="xl" radius="md" withBorder h="100%">
                 <Group justify="space-between" mb="xl">
                   <Title order={3}>Announcements</Title>

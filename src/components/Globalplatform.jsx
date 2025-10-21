@@ -72,13 +72,10 @@ export default function GlobalPlatform() {
 
       {/* Statistics Cards */}
       <SimpleGrid 
-        cols={4} 
+       
         spacing="md" 
         mb="xl"
-        breakpoints={[
-          { maxWidth: 'md', cols: 2 },
-          { maxWidth: 'xs', cols: 1 }
-        ]}
+        cols={{ base: 2, sm: 2, md: 2, lg: 4 }} 
       >
         <Card shadow="sm" padding="lg" radius="md" withBorder>
           <Text  style={{textAlign:'left'}} size="lg" color="dimmed" fw="700" mb="xs">

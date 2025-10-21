@@ -65,84 +65,88 @@ const LearningPath = () => {
 
             {/* Courses in Progress Section */}
             <Box>
-              <Group justify="space-between" align="center" mb="lg">
-                <Title order={2} size="xl" fw={600} c="dark.7">
-                  Courses in Progress
-                </Title>
-                <Anchor
-                  size="sm"
-                  fw={500}
-                  c="blue"
-                  style={{ textDecoration: 'none' }}
-                >
-                  View All
-                </Anchor>
-              </Group>
+  <Group justify="space-between" align="center" mb="lg">
+    <Title order={2} size="xl" fw={600} c="dark.7">
+      Courses in Progress
+    </Title>
+    <Anchor size="sm" fw={500} c="blue" style={{ textDecoration: 'none' }}>
+      View All
+    </Anchor>
+  </Group>
 
-              <Card
-                shadow="sm"
-                padding="lg"
-                radius="md"
-                withBorder
-                style={{
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                  cursor: 'pointer',
-                }}
-                styles={{
-                  root: {
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
-                    },
-                  },
-                }}
-              >
-                <Group gap="md" wrap="nowrap">
-                  {/* Course Icon */}
-                  <Avatar
-                    size={60}
-                    radius="md"
-                    style={{
-                      background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                      flexShrink: 0,
-                    }}
-                  >
-                    <IconFile size={28} color="white" />
-                  </Avatar>
+  <Card
+    shadow="sm"
+    padding="lg"
+    radius="md"
+    withBorder
+    style={{
+      transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+      cursor: 'pointer',
+    }}
+    styles={{
+      root: {
+        '&:hover': {
+          transform: 'translateY(-2px)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+        },
+      },
+    }}
+  >
+    {/* ✅ Responsive Group */}
+    <Group
+      gap="md"
+      wrap="wrap"
+      align="flex-start"
+      style={{ flexDirection: 'row' }}
+    >
+      {/* Avatar */}
+      <Avatar
+        size={60}
+        radius="md"
+        style={{
+          background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+          flexShrink: 0,
+        }}
+      >
+        <IconFile size={28} color="white" />
+      </Avatar>
 
-                  {/* Course Content */}
-                  <Box style={{ flex: 1, minWidth: 0 }}>
-                    <Text
-                      size="md"
-                      fw={600}
-                      c="dark.7"
-                      style={{
-                        lineHeight: 1.4,
-                        wordBreak: 'break-word',
-                        textAlign:'left'
-                      }}
-                    >
-                      Career Transformation Program- Dhanalakshmi Srinivasan Engineering College | CSE | ECE
-                    </Text>
-                  </Box>
+      {/* Course Title */}
+      <Box
+        style={{
+          flex: 1,
+          minWidth: '200px',
+          textAlign: 'left',
+        }}
+      >
+        <Text
+          size="md"
+          fw={600}
+          c="dark.7"
+          style={{ lineHeight: 1.4, wordBreak: 'break-word' }}
+        >
+          Career Transformation Program - Dhanalakshmi Srinivasan Engineering College | CSE | ECE
+        </Text>
+      </Box>
 
-                  {/* View Course Button */}
-                  <Button
-                    variant="filled"
-                    color="blue"
-                    size="md"
-                    radius="md"
-                    rightSection={<IconChevronRight size={16} />}
-                    style={{
-                      flexShrink: 0,
-                      minWidth: rem(120),
-                    }}
-                  >
-                    View Course
-                  </Button>
-                </Group>
-              </Card>
-            </Box>
+      {/* Button */}
+      <Button
+        variant="filled"
+        color="blue"
+        size="md"
+        radius="md"
+        rightSection={<IconChevronRight size={16} />}
+        style={{
+          flexShrink: 0,
+          minWidth: 120,
+        }}
+      >
+        View Course
+      </Button>
+    </Group>
+  </Card>
+</Box>
+
           </Stack>
         </Grid.Col>
 

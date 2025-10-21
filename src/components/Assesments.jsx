@@ -12,7 +12,8 @@ import {
   Badge,
   Container,
   Divider,
-  Flex
+  Flex,
+  UnstyledButton
 } from '@mantine/core';
 import {
   IconClipboardCheck,
@@ -21,7 +22,8 @@ import {
   IconClipboardText,
   IconCircleCheck,
   IconHelpCircle,
-  IconClock
+  IconClock,
+  IconArrowLeft
 } from '@tabler/icons-react';
 import SingleAssessment from '../molecules/SingleAssessment';
 import AssessmentDetails from '../molecules/AssessmentDetails';
@@ -32,6 +34,7 @@ import { callApi } from '../context/api';
 const Assessments = () => {
 
   const [testData, setTestData] = useState([]);
+
 
   const {student} = useStudent();
 
@@ -89,7 +92,7 @@ useEffect(() => {
 
 
   return (
-    <Container size="xl" p={0}>
+    <Container size="xl" p="1rem">
       <Stack spacing="xl">
         {/* Hero Section */}
         <Card
@@ -157,7 +160,7 @@ useEffect(() => {
           <Title style={{textAlign:'left'}} order={3} mb="xl" color="dark">
             Assessment Activity
           </Title>
-          <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="lg">
+          <SimpleGrid cols={{ base: 2, sm: 2, md: 2, lg: 4 }} spacing="lg">
             {assessmentStats.map((stat, index) => (
               <Card
                 key={index}
@@ -224,37 +227,32 @@ useEffect(() => {
         </Box> */}
         <Title order={3} fw="600" style={{textAlign:'left'}} >My Tests
         </Title>  
-     <SimpleGrid
-      cols={3}              // 3 per row by default
-      spacing="lg"          // spacing between cards
-      breakpoints={[
-        { maxWidth: 'lg', cols: 3, spacing: 'md' }, // large screens
-        { maxWidth: 'md', cols: 2, spacing: 'sm' }, // medium screens
-        { maxWidth: 'sm', cols: 1, spacing: 'sm' }, // small screens (mobile)
-      ]}
-    >
-      {testData.length > 0 ? (
-        testData.map((item, index) => (
-          <SingleAssessment
-            key={item.id || index}
-            status={
-              item.start_date && item.end_date
-                ? "Scheduled"
-                : "Draft"
-            }
-            id={item.id}
-            startDate={item.start_date}
-            endDate={item.end_date}
-            expired={item.end_date && new Date(item.end_date) < new Date()}
-            title={item.title}
-            questions={item.max_questions}
-            duration={item.total_time}
-          />
-        ))
-      ) : (
-        <p>No tests available.</p>
-      )}
-    </SimpleGrid>
+   <SimpleGrid
+cols={{ base: 1, sm: 2, md: 2, lg: 3 }} // base = mobile, sm = small tablet, md = tablet, lg = desktop
+  spacing="lg"
+
+>
+  {testData.length > 0 ? (
+    testData.map((item, index) => (
+      <SingleAssessment
+        key={item.id || index}
+        status={
+          item.start_date && item.end_date ? "Scheduled" : "Draft"
+        }
+        id={item.id}
+        startDate={item.start_date}
+        endDate={item.end_date}
+        expired={item.end_date && new Date(item.end_date) < new Date()}
+        title={item.title}
+        questions={item.max_questions}
+        duration={item.total_time}
+      />
+    ))
+  ) : (
+    <p>No tests available.</p>
+  )}
+</SimpleGrid>
+
       </Stack>
     </Container>
   );

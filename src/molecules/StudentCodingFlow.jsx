@@ -26,8 +26,7 @@ export default function StudentCodingFlow() {
   },[])
   
   return <>
-  <Stack>
-    
+  <Stack p="1rem" >   
   <Card
              pl="2.5rem"
              radius={10}
@@ -59,11 +58,9 @@ export default function StudentCodingFlow() {
       maxWidth: '1400px',
     }} mt="2rem" >
       <SimpleGrid
-        cols={2}
+        p="1rem"
         spacing="lg"
-        breakpoints={[
-          { maxWidth: 'md', cols: 1 }
-        ]}
+       cols={{ base: 1, sm: 2, md: 2, lg: 3 }} 
       >
         {challenges.map((challenge) => (
         <UnstyledButton onClick={()=>navigation(`/home/codeeditor/${challenge.id}`)} >

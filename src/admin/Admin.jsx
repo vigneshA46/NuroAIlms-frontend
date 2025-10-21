@@ -35,10 +35,13 @@ import Activeports from "./Activeports";
 import { useStudent } from "../context/StudentContext";
 import LogoutModal from "../molecules/LogoutModal.jsx";
 import { useEffect } from "react";
+import { useMediaQuery } from "@mantine/hooks";
 
 
 const Admin = () => {
   const [opened, setOpened] = useState(false); 
+    const isMobile = useMediaQuery("(max-width: 768px)");
+  
   const navigate = useNavigate();
   const location = useLocation();
   const { logoutAdmin , admin} = useStudent();
@@ -54,6 +57,13 @@ const Admin = () => {
       navigate('/')
     }
   })
+   useEffect(() => {
+      if (isMobile) {
+        document.body.style.overflow = opened ? "hidden" : "auto";
+      }
+      return () => (document.body.style.overflow = "auto");
+    }, [opened, isMobile]);
+  
 
   
 
@@ -82,7 +92,33 @@ const Admin = () => {
       </AppShell.Header>
 
       {/* NAVBAR */}
-      <AppShell.Navbar p="md">
+       {isMobile && opened && (
+              <Box
+                onClick={() => setOpened(false)}
+                style={{
+                  position: "fixed",
+                  top: 60,
+                  left: 0,
+                  width: "100%",
+                  height: "calc(100vh - 60px)",
+                  backgroundColor: "rgba(0,0,0,0.3)",
+                  zIndex: 1000,
+                }}
+              />
+            )}
+      <AppShell.Navbar
+      w={isMobile ? "75%" : 250}
+        p="md"
+        style={{
+          zIndex: 1001,
+          position: isMobile ? "fixed" : "fixed",
+          height: "100vh",
+          top: isMobile ? 60 : 0,
+          left: opened ? 0 : isMobile ? "-75%" : 0,
+          transition: "left 0.3s ease",
+          backgroundColor: "white",
+        }}
+        >
         {/* Logo */}
         <Group mb="md">
           <Box
@@ -127,19 +163,19 @@ const Admin = () => {
               {item.label}
             </Button>
           ))}
-        </Stack>
-
-        {/* Logout */}
         <Button
           leftSection={<IconLogout size={18} />}
           variant="subtle"
           color="gray"
           fullWidth
           justify="flex-start"
-          onClick={()=>setLogoutOpen(true)}
+          onClick={()=>{setLogoutOpen(true);setOpened(false)}}
         >
           Log out
         </Button>
+        </Stack>
+
+        {/* Logout */}
  <LogoutModal
         opened={logoutOpen}
         onClose={() => setLogoutOpen(false)}
@@ -148,7 +184,7 @@ const Admin = () => {
             </AppShell.Navbar>
 
       {/* MAIN CONTENT WITH ROUTES */}
-      <AppShell.Main bg="gray.0" px="1rem" py="5rem">
+      <AppShell.Main bg="gray.0" w="100%">
         <Outlet />
       </AppShell.Main>
     </AppShell>
