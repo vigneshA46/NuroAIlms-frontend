@@ -56,7 +56,6 @@ function App() {
           </Route>
           <Route path='testpage/:testid' element={<TestPage />} />
 
-
           <Route path='/admin' element={<Admin/>} >
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path='dashboard' element={<AdminDashboard/>}/>

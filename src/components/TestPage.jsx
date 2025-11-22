@@ -25,6 +25,7 @@ import {
 } from '@tabler/icons-react';
 import Testquestion from './Testquestion';
 import { useParams } from 'react-router-dom';
+import { useStudent } from '../context/StudentContext';
 
 export default function TestPage() {
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -34,6 +35,7 @@ export default function TestPage() {
   const [bookmarked, setBookmarked] = useState(false);
   const [attemptedQuestions, setAttemptedQuestions] = useState(0);
   const [section, setSection] = useState('Business Communication');
+  const student = useStudent();
 
   const {testid}= useParams();
 
@@ -106,7 +108,7 @@ export default function TestPage() {
 
           <Stack gap={0} style={{ flex: 1, maxWidth: 500 }}>
             <Text size="xs" c="gray.4">
-              Candidate: <Text span fw={500} c="white">VIKRAM V</Text>
+              Candidate: <Text span fw={500} c="white">{student.full_name}</Text>
             </Text>
             <Text size="xs" c="gray.4">
               Test: <Text span fw={500} c="white">Dhanalakshmi Srinivasan Engineering College, Perambalur Assessment Day - 7</Text>

@@ -148,7 +148,7 @@ const SingleAssessment = ({
           <Group spacing="xs" align="center">
             <IconClipboardText size={14} color="#64748b" />
             <Text size="sm" color="dimmed">
-              {questions} questions • {duration}
+              {questions} questions • {duration} Minutes
             </Text>
           </Group>
         </Stack>

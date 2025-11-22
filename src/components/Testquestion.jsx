@@ -102,24 +102,35 @@ const [violationCount, setViolationCount] = useState(0);
   };
 
   // Compute score at finish
-  const calculateScore = async () => {
-    let finalScore = 0;
-    for (let i = 0; i < totalQuestions; i++) {
-      try {
-        const { data } = await callApi(
-          "GET"
-          `/question/${testid}/question/${i}`
-        );
-        const q = data.question;
-        if (answers[q.id] === q.correct_option) {
-          finalScore++;
-        }
-      } catch (err) {
-        console.error(err);
+const calculateScore = async () => {
+  let finalScore = 0;
+  for (let i = 0; i < totalQuestions; i++) {
+    try {
+      const { data } = await callApi(
+        "GET",
+        `/question/${testid}/question/${i}`
+      );
+      const q = data.question;
+
+      const selected = answers[q.id];
+      const correct = q.correct_option;
+
+      if (
+        selected &&
+        correct &&
+        (
+          selected.toLowerCase() === correct.toLowerCase() ||
+          selected === `option_${correct.toLowerCase()}`
+        )
+      ) {
+        finalScore++;
       }
+    } catch (err) {
+      console.error(err);
     }
-    return finalScore;
-  };
+  }
+  return finalScore;
+};
 
   // Finish Test
   const handleFinishTest = async () => {

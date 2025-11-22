@@ -35,7 +35,6 @@ const Assessments = () => {
 
   const [testData, setTestData] = useState([]);
 
-
   const {student} = useStudent();
 
   const assessmentStats = [
@@ -69,8 +68,6 @@ const Assessments = () => {
     }
   ];
  
-
-
 useEffect(() => {
     const fetchTests = async () => {
       try {

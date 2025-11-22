@@ -27,7 +27,7 @@ const Dashboard = () => {
     color: "white",
   }}>
             <Title style={{textAlign:'left'}} order={1} mb="sm" c="#000">
-              Welcome Back, <Text size='30px' fw="700" component="span" c="blue">VIGNESH A!</Text>
+              Welcome Back, <Text size='30px' fw="700" component="span" c="blue">{student.full_name}!</Text>
             </Title>
             <Text style={{textAlign:'left'}} c="dimmed" size="md" mb="md">
               Ready to continue your learning journey? You're making great progress!
